@@ -1,7 +1,9 @@
 # Imports
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 from tensorflow import keras
 from keras import preprocessing
-import numpy as np
+
 
 #Code starts here
 data = keras.datasets.imdb
@@ -29,3 +31,9 @@ print(len(train_data[0]), len(train_data[1]))
 def decode_review(text):
     return " ".join([reverse_word_index.get(i, "?") for i in text])
 
+# Set up model
+model = keras.Sequential()
+model.add(keras.layers.Embedding(10000, 16))
+model.add(keras.layers.GlobalAvgPool1D())
+model.add(keras.layers.Dense(16, activation = "relu"))
+model.add(keras.layers.Dense(1, activation = "sigmoid"))
