@@ -12,7 +12,7 @@ data = keras.datasets.imdb
 
 # print(train_data[0])
 # data with different length => can't come up with how many neurons for input
-print(len(test_data[0]), len(test_data[1]))
+print(len(train_data[0]), len(train_data[1]))
 word_index = data.get_word_index()
 
 word_index = {k: (v+3) for k, v in word_index.items()}
@@ -31,6 +31,10 @@ print(len(train_data[0]), len(train_data[1]))
 def decode_review(text):
     return " ".join([reverse_word_index.get(i, "?") for i in text])
 
+# for i in range(len(train_data)):
+#     print(decode_review(train_data[i]))
+
+
 # Set up model
 model = keras.Sequential()
 model.add(keras.layers.Embedding(10000, 16))
@@ -38,4 +42,7 @@ model.add(keras.layers.GlobalAvgPool1D())
 model.add(keras.layers.Dense(16, activation = "relu"))
 model.add(keras.layers.Dense(1, activation = "sigmoid"))
 
-print(model.summary())
+# print(model.summary())
+
+model.compile(optimizer = "adam", loss = "binary_crossentropy", metrics=["accuracy"])
+
