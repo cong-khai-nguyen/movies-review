@@ -11,7 +11,7 @@ data = keras.datasets.imdb
 (train_data, train_labels), (test_data, test_labels) = data.load_data(num_words=10000)
 
 # print(train_data[0])
-# data with different length => can't come up with how many neurons for input
+# data with different length => can't come up with the shape needed for our neural network model
 print(len(train_data[0]), len(train_data[1]))
 word_index = data.get_word_index()
 
@@ -61,7 +61,7 @@ class_name = ["negative", "positive"]
 
 test_review = test_data[1]
 prediction = model.predict([test_review])
-print(prediction)
+# print(prediction)
 print("Review:\n", decode_review(test_review))
 print("Prediction:\n", class_name[round(prediction[0][0])])
 print("Actual:\n", class_name[test_labels[1]])
