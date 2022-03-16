@@ -53,7 +53,6 @@ y_valid = train_labels[:10000]
 y_train = train_labels[10000:]
 
 fitModel = model.fit(x_train, y_train, epochs=40, batch_size=512, validation_data=(x_valid, y_valid), verbose=1)
-
 result = model.evaluate(test_data, test_labels)
 
 print(result)
