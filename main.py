@@ -56,3 +56,12 @@ fitModel = model.fit(x_train, y_train, epochs=40, batch_size=512, validation_dat
 result = model.evaluate(test_data, test_labels)
 
 print(result)
+
+class_name = ["negative", "positive"]
+
+test_review = test_data[1]
+prediction = model.predict([test_review])
+print(prediction)
+print("Review:\n", decode_review(test_review))
+print("Prediction:\n", class_name[round(prediction[0][0])])
+print("Actual:\n", class_name[test_labels[1]])
