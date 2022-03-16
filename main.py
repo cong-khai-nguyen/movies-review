@@ -38,7 +38,7 @@ def decode_review(text):
 # Set up model
 model = keras.Sequential()
 model.add(keras.layers.Embedding(10000, 16))
-model.add(keras.layers.GlobalAvgPool1D())
+model.add(keras.layers.GlobalAveragePooling1D())
 model.add(keras.layers.Dense(16, activation = "relu"))
 model.add(keras.layers.Dense(1, activation = "sigmoid"))
 
@@ -46,3 +46,14 @@ model.add(keras.layers.Dense(1, activation = "sigmoid"))
 
 model.compile(optimizer = "adam", loss = "binary_crossentropy", metrics=["accuracy"])
 
+x_valid = train_data[:10000]
+x_train = train_data[10000:]
+
+y_valid = train_labels[:10000]
+y_train = train_labels[10000:]
+
+fitModel = model.fit(x_train, y_train, epochs=40, batch_size=512, validation_data=(x_valid, y_valid), verbose=1)
+
+result = model.evaluate(test_data, test_labels)
+
+print(result)
