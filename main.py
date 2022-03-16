@@ -12,7 +12,7 @@ data = keras.datasets.imdb
 
 # print(train_data[0])
 # data with different length => can't come up with how many neurons for input
-# print(len(test_data[0]), len(test_data[1]))
+print(len(test_data[0]), len(test_data[1]))
 word_index = data.get_word_index()
 
 word_index = {k: (v+3) for k, v in word_index.items()}
@@ -37,3 +37,5 @@ model.add(keras.layers.Embedding(10000, 16))
 model.add(keras.layers.GlobalAvgPool1D())
 model.add(keras.layers.Dense(16, activation = "relu"))
 model.add(keras.layers.Dense(1, activation = "sigmoid"))
+
+print(model.summary())
