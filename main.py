@@ -83,7 +83,7 @@ with open("test.txt", encoding = "utf-8") as f:
         predict = model.predict(encode)
         print("Review\n", line)
         print(encode)
-        print(class_name[round(predict[0])])
+        print(class_name[round(predict[0][0])], ":", predict[0][0])
 
 
 
