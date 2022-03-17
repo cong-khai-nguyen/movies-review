@@ -36,29 +36,54 @@ def decode_review(text):
 
 
 # Set up model
-model = keras.Sequential()
-model.add(keras.layers.Embedding(88000, 16))
-model.add(keras.layers.GlobalAveragePooling1D())
-model.add(keras.layers.Dense(16, activation = "relu"))
-model.add(keras.layers.Dense(1, activation = "sigmoid"))
-
-# print(model.summary())
-
-model.compile(optimizer = "adam", loss = "binary_crossentropy", metrics=["accuracy"])
-
-x_valid = train_data[:10000]
-x_train = train_data[10000:]
-
-y_valid = train_labels[:10000]
-y_train = train_labels[10000:]
-
-fitModel = model.fit(x_train, y_train, epochs=40, batch_size=512, validation_data=(x_valid, y_valid), verbose=1)
-result = model.evaluate(test_data, test_labels)
-
-print(result)
+# model = keras.Sequential()
+# model.add(keras.layers.Embedding(88000, 16))
+# model.add(keras.layers.GlobalAveragePooling1D())
+# model.add(keras.layers.Dense(16, activation = "relu"))
+# model.add(keras.layers.Dense(1, activation = "sigmoid"))
+#
+# # print(model.summary())
+#
+# model.compile(optimizer = "adam", loss = "binary_crossentropy", metrics=["accuracy"])
+#
+# x_valid = train_data[:10000]
+# x_train = train_data[10000:]
+#
+# y_valid = train_labels[:10000]
+# y_train = train_labels[10000:]
+#
+# fitModel = model.fit(x_train, y_train, epochs=40, batch_size=512, validation_data=(x_valid, y_valid), verbose=1)
+# result = model.evaluate(test_data, test_labels)
+#
+# print(result)
 
 # Save the model
-model.save('imdb.h5')
+# model.save('imdb.h5')
+
+
+def review_encode(s):
+    encoded = [1]
+
+    for word in s:
+        if word.lower() in word_index:
+            encoded.append(word_index[word.lower()])
+        else:
+            encoded.append(2)
+
+    return encoded
+
+
+model = keras.models.load_model("imdb.h5")
+class_name = ["negative", "positive"]
+with open("test.txt", encoding = "utf-8") as f:
+    for line in f.readlines():
+        nline = line.replace(",", "").replace("\"", "").replace(".", "").replace(")", "").replace("(", "").replace(":", "").replace("-", "").strip().split(" ")
+        encode = review_encode(nline)
+        encode = preprocessing.sequence.pad_sequences([encode], value=word_index["<PAD>"], padding="post", maxlen =250)
+        predict = model.predict(encode)
+        print("Review\n", line)
+        print(encode)
+        print(class_name[round(predict[0])])
 
 
 
