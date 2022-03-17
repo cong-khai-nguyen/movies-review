@@ -7,7 +7,7 @@ The purpose of this project is to classify the sentiment of a movie review(negat
 
 The data set can also be found here: [IMBD](https://www.tensorflow.org/api_docs/python/tf/keras/datasets/imdb/load_data)
 
-For this project, I follow tensorflow documentation/tutorial here: https://www.tensorflow.org/tutorials/keras/text_classification and https://www.tensorflow.org/api_docs/python/tf/keras/datasets/imdb/load_data
+For this project, I follow tensorflow documentation/tutorial here: https://www.tensorflow.org/tutorials/keras/text_classification https://www.tensorflow.org/api_docs/python/tf/keras/datasets/imdb/load_data
 # Install and Run the Project
 This project requires installed Python libraries: tensorflow, keras.
 
